@@ -9,7 +9,7 @@ metadata:
     deployment.kubernetes.io/revision: '7'
     kubesphere.io/creator: admin
 spec:
-  replicas: 1
+  replicas: 6
   selector:
     matchLabels:
       app: spug
@@ -26,9 +26,11 @@ spec:
     spec:
       volumes:
         - name: spug
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: spug-nfs-spug
         - name: repos
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: spug-nfs
       containers:
         - name: spug
           image: 'registry.cn-hangzhou.aliyuncs.com/gasly/spug:SNAPSHOT-BUILD_NUMBER'
