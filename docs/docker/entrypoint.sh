@@ -12,7 +12,7 @@ if [ ! -d /data/spug/spug_api ]; then
     tar xf web.tar.gz -C /data/spug/spug_web/
     rm -f web.tar.gz
     SECRET_KEY=$(< /dev/urandom tr -dc '!@#%^.a-zA-Z0-9' | head -c50)
-    cat > /data/spug/spug_api/spug/overrides.py << EOF
+    cat > /data/spug/spug_api/spug/overrides1.py << EOF
 import os
 
 
