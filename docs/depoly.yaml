@@ -31,7 +31,7 @@ spec:
           emptyDir: {}
       containers:
         - name: spug
-          image: 'registry.cn-hangzhou.aliyuncs.com/gasly/spug:SNAPSHOT-8'
+          image: 'registry.cn-hangzhou.aliyuncs.com/gasly/spug:SNAPSHOT-BUILD_NUMBER'
           ports:
             - name: http-0
               containerPort: 80
