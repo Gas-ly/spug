@@ -7,7 +7,7 @@ if [ -e /root/.bashrc ]; then
 fi
 
 if [ ! -d /data/spug/spug_api ]; then
-    git clone -b $SPUG_DOCKER_VERSION https://gitee.com/openspug/spug.git /data/spug
+    git clone -b 3.0 https://github.com/Gas-ly/spug.git /data/spug
     curl -o web.tar.gz https://cdn.spug.cc/spug/web_${SPUG_DOCKER_VERSION}.tar.gz
     tar xf web.tar.gz -C /data/spug/spug_web/
     rm -f web.tar.gz
