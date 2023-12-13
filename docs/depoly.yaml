@@ -1,0 +1,63 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: spug
+  namespace: spug
+  labels:
+    app: spug
+  annotations:
+    deployment.kubernetes.io/revision: '7'
+    kubesphere.io/creator: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spug
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spug
+      annotations:
+        app: spug
+        kubesphere.io/creator: admin
+        kubesphere.io/imagepullsecrets: '{"spug":"aliyun-dockerhub"}'
+        logging.kubesphere.io/logsidecar-config: '{}'
+    spec:
+      volumes:
+        - name: spug
+          emptyDir: {}
+        - name: repos
+          emptyDir: {}
+      containers:
+        - name: spug
+          image: 'registry.cn-hangzhou.aliyuncs.com/gasly/spug:SNAPSHOT-8'
+          ports:
+            - name: http-0
+              containerPort: 80
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: spug
+              mountPath: /data/spug
+            - name: repos
+              mountPath: /data/repos
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      serviceAccountName: default
+      serviceAccount: default
+      securityContext: {}
+      imagePullSecrets:
+        - name: aliyun-dockerhub
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
