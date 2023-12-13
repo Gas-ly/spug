@@ -1,3 +1,33 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: spug
+  name: spug-nfs-spug
+  labels: {}
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+---
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: spug
+  name: spug-nfs-repos
+  labels: {}
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -30,7 +60,7 @@ spec:
             claimName: spug-nfs-spug
         - name: repos
           persistentVolumeClaim:
-            claimName: spug-nfs
+            claimName: spug-nfs-repos
       containers:
         - name: spug
           image: 'registry.cn-hangzhou.aliyuncs.com/gasly/spug:SNAPSHOT-BUILD_NUMBER'
